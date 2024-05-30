@@ -48,8 +48,15 @@ class BookItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
+                
                 Text(
                   book.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 20),
+                ),
+                 Text(
+                  book.author,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 20),
                 )
