@@ -1,23 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Book {
   final String id;
   final String author;
   final String name;
   final String genre;
   final String content;
+  final String photo;
 
   Book(
       {required this.id,
       required this.author,
       required this.name,
       required this.genre,
-      required this.content});
+      required this.content,
+      required this.photo});
 
-  factory Book.fromJson(Map<String, dynamic> json) {
+  factory Book.fromFireStore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+  ) {
+    final doc = snapshot.data();
     return Book(
-        author: json['author'],
-        content: json['content'],
-        genre: json['genre'],
-        id: json['id'],
-        name: json['name']);
+        author: doc?['author'] ?? '',
+        content: doc?['content'] ?? '',
+        genre: doc?['genre'] ?? '',
+        id: doc?['id'] ?? '',
+        photo: doc?['photo'] ?? '',
+        name: doc?['name'] ?? '');
   }
 }

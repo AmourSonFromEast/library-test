@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Library',
       darkTheme: darkTheme,
 
-      routerConfig: router,
+      routerConfig: AppRouter().router,
      
     );
   }
