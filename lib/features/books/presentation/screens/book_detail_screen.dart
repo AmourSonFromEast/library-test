@@ -1,11 +1,12 @@
+import 'package:books/features/books/data/models/book.dart';
 import 'package:books/features/books/presentation/widgets/loading_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class BookDetailScreen extends StatelessWidget {
-  final String id;
-  const BookDetailScreen({super.key, required this.id});
+  final Book book;
+  const BookDetailScreen({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +17,36 @@ class BookDetailScreen extends StatelessWidget {
           SliverAppBar(
             floating: true,
             pinned: false,
-            title: Text("НАЗВАНИЕ КНИГИ"),
+            title: Text(book.name),
          ),
-          SliverFillRemaining(child: CachedNetworkImage(
-                imageUrl:  "https://b1.multvkino.tlum.ru/c/43.340x340.jpg",
+       book.photo.isNotEmpty ?   SliverFillRemaining(child: CachedNetworkImage(
+                imageUrl:  book.photo,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => LoadingWidget(),
                 errorWidget: (context, url, error) =>
                     Center(child: Icon(Icons.error)),
-              ), ),
-          SliverList.builder(itemBuilder: (context, index) => ListTile(title: Text("rewrwe"),),)
+              ), ) : SliverToBoxAdapter(),
+
+         SliverToBoxAdapter(
+              child: SizedBox(
+                height: 55, // Установите желаемую высоту
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: book.genre.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                 
+                      color: Colors.green,
+                      margin: EdgeInsets.all(8),
+                      child: Center(
+                        child: Text(book.genre[index]),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          SliverList.list(children: [Text(book.content)])
         ],
       ),
     );

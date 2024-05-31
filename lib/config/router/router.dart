@@ -1,7 +1,9 @@
+import 'package:books/features/books/data/models/book.dart';
 import 'package:books/features/books/presentation/screens/add_book_screen.dart';
 import 'package:books/features/books/presentation/screens/books_list_screen.dart';
 import 'package:books/features/books/presentation/screens/book_detail_screen.dart';
 import 'package:books/features/books/presentation/screens/main_screen.dart';
+import 'package:books/features/books/presentation/screens/search_books_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -40,13 +42,14 @@ class AppRouter {
                               child: AddBookSreen()),
                     ),
                     GoRoute(
-                      path: 'detail:id',
+                      path: 'detail',
+                      
                       pageBuilder: (context, state) =>
                           buildPageWithDefaultTransition(
                         context: context,
                         state: state,
                         child:
-                            BookDetailScreen(id: state.pathParameters["id"]!),
+                            BookDetailScreen(book: state.extra as Book ),
                       ),
                     ),
                   ]),
@@ -56,8 +59,8 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/favorites',
-                builder: (context, state) => const BookDetailScreen(
-                  id: 'eqweqweqw',
+                builder: (context, state) => const SearchBooksScreen(
+                
                 ),
               ),
             ],

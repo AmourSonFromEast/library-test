@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:books/features/books/data/datasources/firebase_datasorce.dart';
 import 'package:books/features/books/data/models/book.dart';
 import 'package:books/features/books/domain/repositories/books_repository.dart';
@@ -9,15 +11,27 @@ class BooksRepositoryImpl implements BooksRepository {
       : _firebaseDatasorce = firebaseDatasorce;
 
   @override
-  Future addBook(Book book) {
-    // TODO: implement addBook
-    throw UnimplementedError();
+  Future addBook(Book book) async {
+    try {
+      await _firebaseDatasorce.addBook(book);
+
+    } catch (e) {
+      throw Exception("Ошибка добавления книги");
+    }
   }
 
   @override
-  Future deleteBook(String id) {
-    // TODO: implement deleteBook
-    throw UnimplementedError();
+  Future deleteBook(String id) async {
+
+    try {
+      await _firebaseDatasorce.deleteBook(id);
+      
+    } catch (e) {
+      throw Exception(e);
+      
+    }
+
+   
   }
 
   @override
@@ -37,8 +51,15 @@ class BooksRepositoryImpl implements BooksRepository {
   }
 
   @override
-  Future<List<Book>?> searchBook() {
-    // TODO: implement searchBook
-    throw UnimplementedError();
+  Future<List<Book>?> searchBook(text) async {
+
+    try {
+      return _firebaseDatasorce.searchBook(text);
+      
+    } catch (e) {
+      
+    }
+
+  
   }
 }
